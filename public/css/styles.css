@@ -1,3 +1,40 @@
-h1 {
-  color: blue;
+* {
+  border: 2px solid grey;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: grid;
+  grid-template-rows: 1fr 50px 100px 100px 200px;
+  height: 100vh;
+}
+
+.colors {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.color-1 {
+  background: red;
+}
+
+.color-2 {
+  background: black;
+}
+
+.color-3 {
+  background: purple;
+}
+
+.color-4 {
+  background: green;
+}
+
+.color-5 {
+  background: orange;
+}
+
+.projects {
 }
