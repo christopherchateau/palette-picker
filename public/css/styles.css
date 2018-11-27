@@ -2,6 +2,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Gloria Hallelujah', cursive;
 }
 
 body {
@@ -38,7 +39,7 @@ body {
 
 .refresh-colors-btn {
   cursor: pointer;
-  font-size: 32px;
+  font-size: 26px;
 }
 
 .refresh-colors-btn:hover {
