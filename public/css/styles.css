@@ -1,5 +1,4 @@
 * {
-  border: 2px solid grey;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -9,6 +8,7 @@ body {
   display: grid;
   grid-template-rows: 1fr 50px 100px 100px 200px;
   height: 100vh;
+  width: 100vw;
 }
 
 .colors {
@@ -36,5 +36,36 @@ body {
   background: orange;
 }
 
+.refresh-colors-btn {
+  cursor: pointer;
+  font-size: 32px;
+}
+
+.refresh-colors-btn:hover {
+  background-color: grey;
+  color: white;
+  transition: all 0.4s ease-in-out;
+}
+
 .projects {
+  display: flex;
+  overflow: scroll;
+}
+
+.project-1 {
+  background: lightgrey;
+  height: 200px;
+  width: 700px;
+}
+
+.project-2 {
+  background: silver;
+  height: 200px;
+  width: 700px;
+}
+
+.project-3 {
+  background: grey;
+  height: 200px;
+  width: 600px;
 }
