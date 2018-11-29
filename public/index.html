@@ -3,11 +3,41 @@
 
 <head>
   <title>palette picker</title>
-  <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">  <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 
 <body>
-  <h1>palettePicker</h1>
+  <header class="colors">
+    <div class="color-1"></div>
+    <div class="color-2"></div>
+    <div class="color-3"></div>
+    <div class="color-4"></div>
+    <div class="color-5"></div>
+  </header>
+  <button class="refresh-colors-btn">
+    Refresh Colors
+  </button>
+  <form class="palette-form">
+    <select class="palatte-drop-down">
+      <option value="proj-1">Project 1</option>
+      <option value="proj-2">Project 2</option>
+    </select>
+    <input class="palatte-input" type="text" placeholder="palatte name">
+    <button class="save-palatte-btn">
+      Save Palatte
+    </button>
+  </form>
+  <form class="project-form">
+    <input class="project-input" type="text" placeholder="project name">
+    <button class="create-project-btn">
+      Create New Project
+    </button>
+  </form>
+  <footer class="projects">
+    <section class="project-1"></section>
+    <section class="project-2"></section>
+    <section class="project-3"></section>
+  </footer>
 </body>
 
 </html>
