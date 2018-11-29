@@ -17,5 +17,11 @@
   "bugs": {
     "url": "https://github.com/christopherchateau/palette-picker/issues"
   },
-  "homepage": "https://github.com/christopherchateau/palette-picker#readme"
+  "homepage": "https://github.com/christopherchateau/palette-picker#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "knex": "^0.15.2",
+    "pg": "^7.6.1"
+  },
+  "devDependencies": {}
 }
