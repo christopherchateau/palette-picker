@@ -37,6 +37,26 @@ body {
   background: orange;
 }
 
+.color-1,
+.color-2,
+.color-3,
+.color-4,
+.color-5 {
+  align-items: flex-end;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.fas {
+  color: white;
+  font-size: 44px;
+}
+
+.fas:hover {
+  color: grey;
+}
+
 .refresh-colors-btn {
   background: rgb(223, 223, 223);
   cursor: pointer;
@@ -53,14 +73,14 @@ body {
   background: lightgrey;
 }
 
-.palatte-drop-down,
-.save-palatte-btn {
+.palette-drop-down,
+.save-palette-btn {
   cursor: pointer;
 }
 
-.palatte-input,
-.palatte-drop-down,
-.save-palatte-btn {
+.palette-input,
+.palette-drop-down,
+.save-palette-btn {
   font-size: 20px;
   width: 20%;
 }
