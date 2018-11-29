@@ -2,7 +2,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Gloria Hallelujah', cursive;
+  font-family: "Gloria Hallelujah", cursive;
 }
 
 body {
@@ -50,23 +50,14 @@ body {
 
 .fas {
   color: white;
+  cursor: pointer;
   font-size: 44px;
-}
-
-.fas:hover {
-  color: grey;
 }
 
 .refresh-colors-btn {
   background: rgb(223, 223, 223);
   cursor: pointer;
   font-size: 26px;
-}
-
-.refresh-colors-btn:hover {
-  background-color: grey;
-  color: white;
-  transition: all 0.4s ease-in-out;
 }
 
 .palette-form {
@@ -113,16 +104,33 @@ body {
 }
 
 .project-1 {
-
   width: 700px;
 }
 
 .project-2 {
-
   width: 700px;
 }
 
 .project-3 {
-
   width: 600px;
+}
+
+.fas:hover {
+  color: grey;
+  filter: drop-shadow(5px 5px black);
+  transition: all 0.4s ease-in-out;
+}
+
+.palette-drop-down:hover,
+.save-palette-btn:hover,
+.refresh-colors-btn:hover,
+.create-project-btn:hover {
+  background-color: grey;
+  color: white;
+  transition: all 0.4s ease-in-out;
+}
+
+
+.red {
+  color: red;
 }
