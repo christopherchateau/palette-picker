@@ -4,14 +4,14 @@ const bodyParser = require("body-parser");
 
 app.use(express.static("public"));
 app.use(bodyParser.json());
-app.set("port", process.env.PORT || 3000);
+app.set("port", process.env.NODE_ENV || "development");
 
 app.get("api/v1/projects", (request, response) => {
   database("projects")
     .select()
     .then(projects => {
       response.status(200).json(projects);
-    }) 
+    })
     .catch(error => {
       response.status(500).json({ error: error.message });
     });
