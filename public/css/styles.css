@@ -88,7 +88,7 @@ body {
 }
 
 .projects {
-  background: darkgrey;
+  background: silver;
   display: flex;
   overflow: scroll;
 }
@@ -116,8 +116,9 @@ body {
 /* Individual Project */
 
 .project-1 {
+  background-color: grey;
   border: 10px solid silver;
-  min-width: 33.3%;
+  width: 500px;
   overflow: scroll;
   padding-left: 10px;
 }
@@ -132,8 +133,7 @@ body {
   justify-content: space-between;
 }
 
-.palette:hover {
-  background-color: grey;
+.palette-name-colors:hover {
   color: white;
   cursor: pointer;
   transition: all 0.4s ease-in-out;
@@ -141,13 +141,16 @@ body {
 
 .fa-trash {
   color: white;
-  font-size: 18px;
+  font-size: 38px;
+  position: relative;
+  right: 14px;
+  top: 28px;
   transition: all 0.4s ease-in-out;
-
 }
 
 .fa-trash:hover {
   color: black;
+  cursor: pointer;
 }
 
 .palette-colors {
@@ -180,5 +183,5 @@ body {
 .palette-color-4,
 .palette-color-5 {
   height: 40px;
-  width: 50px;
+  width: 80px;
 }
