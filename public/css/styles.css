@@ -54,6 +54,10 @@ body {
   font-size: 44px;
 }
 
+.fa-lock-open {
+  opacity: .4;
+}
+
 .refresh-colors-btn {
   background: rgb(223, 223, 223);
   cursor: pointer;
@@ -128,9 +132,4 @@ body {
   background-color: grey;
   color: white;
   transition: all 0.4s ease-in-out;
-}
-
-
-.red {
-  color: red;
 }
