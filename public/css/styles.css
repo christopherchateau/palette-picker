@@ -120,20 +120,26 @@ body {
   border: 10px solid silver;
   width: 500px;
   overflow: scroll;
-  padding-left: 10px;
 }
 
 .project-name {
   font-size: 32px;
   margin-bottom: 10px;
+  padding-left: 8px;
 }
 
 .palette {
+  border-radius: 10px;
   display: flex;
   justify-content: space-between;
 }
 
+.palette-name {
+  padding-left: 8px;
+}
+
 .palette-name-colors:hover {
+  background-color: silver;
   color: white;
   cursor: pointer;
   transition: all 0.4s ease-in-out;
@@ -144,7 +150,7 @@ body {
   font-size: 38px;
   position: relative;
   right: 14px;
-  top: 28px;
+  top: 34px;
   transition: all 0.4s ease-in-out;
 }
 
@@ -155,6 +161,7 @@ body {
 
 .palette-colors {
   display: flex;
+  padding: 8px;
 }
 
 .palette-color-1 {
