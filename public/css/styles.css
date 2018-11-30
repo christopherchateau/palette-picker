@@ -2,7 +2,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Gloria Hallelujah', cursive;
+  font-family: "Gloria Hallelujah", cursive;
 }
 
 body {
@@ -17,50 +17,51 @@ body {
   grid-template-columns: repeat(5, 1fr);
 }
 
-.color-1 {
-  background: red;
-}
-
-.color-2 {
-  background: black;
-}
-
-.color-3 {
-  background: purple;
-}
-
-.color-4 {
-  background: green;
-}
-
+.color-1,
+.color-2,
+.color-3,
+.color-4,
 .color-5 {
-  background: orange;
+  align-items: flex-end;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.fa-lock,
+.fa-lock-open {
+  color: white;
+  cursor: pointer;
+  font-size: 44px;
+}
+
+.fa-lock {
+  opacity: 0.8;
+}
+
+.fa-lock-open {
+  opacity: 0.3;
 }
 
 .refresh-colors-btn {
   background: rgb(223, 223, 223);
+  border: none;
   cursor: pointer;
   font-size: 26px;
-}
-
-.refresh-colors-btn:hover {
-  background-color: grey;
-  color: white;
-  transition: all 0.4s ease-in-out;
 }
 
 .palette-form {
   background: lightgrey;
 }
 
-.palatte-drop-down,
-.save-palatte-btn {
+.palette-drop-down,
+.save-palette-btn {
   cursor: pointer;
 }
 
-.palatte-input,
-.palatte-drop-down,
-.save-palatte-btn {
+.palette-input,
+.palette-drop-down,
+.save-palette-btn {
   font-size: 20px;
   width: 20%;
 }
@@ -87,22 +88,107 @@ body {
 }
 
 .projects {
-  background: darkgrey;
+  background: silver;
   display: flex;
   overflow: scroll;
 }
 
+.fa-lock:hover,
+.fa-lock-open:hover {
+  color: grey;
+  filter: drop-shadow(5px 5px black);
+  transition: all 0.4s ease-in-out;
+}
+
+.palette-drop-down:hover,
+.save-palette-btn:hover,
+.refresh-colors-btn:hover,
+.create-project-btn:hover {
+  background-color: grey;
+  color: white;
+  transition: all 0.4s ease-in-out;
+}
+
+.refresh-colors-btn {
+  outline: none;
+}
+
+/* Individual Project */
+
 .project-1 {
-
-  width: 700px;
+  background-color: grey;
+  border: 10px solid silver;
+  width: 500px;
+  overflow: scroll;
 }
 
-.project-2 {
-
-  width: 700px;
+.project-name {
+  font-size: 32px;
+  margin-bottom: 10px;
+  padding-left: 8px;
 }
 
-.project-3 {
+.palette {
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+}
 
-  width: 600px;
+.palette-name {
+  padding-left: 8px;
+}
+
+.palette-name-colors:hover {
+  background-color: silver;
+  color: white;
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
+}
+
+.fa-trash {
+  color: white;
+  font-size: 38px;
+  position: relative;
+  right: 14px;
+  top: 34px;
+  transition: all 0.4s ease-in-out;
+}
+
+.fa-trash:hover {
+  color: black;
+  cursor: pointer;
+}
+
+.palette-colors {
+  display: flex;
+  padding: 8px;
+}
+
+.palette-color-1 {
+  background-color: blue;
+}
+
+.palette-color-2 {
+  background-color: green;
+}
+
+.palette-color-3 {
+  background-color: black;
+}
+
+.palette-color-4 {
+  background-color: orange;
+}
+
+.palette-color-5 {
+  background-color: pink;
+}
+
+.palette-color-1,
+.palette-color-2,
+.palette-color-3,
+.palette-color-4,
+.palette-color-5 {
+  height: 40px;
+  width: 80px;
 }
