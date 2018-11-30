@@ -1,4 +1,5 @@
-$(".fas").on("click", toggleLock);
+$(".fa-lock").on("click", toggleLock);
+$(".fa-lock-open").on("click", toggleLock);
 $(".refresh-colors-btn").on("click", generateRandomColors);
 
 const lockLog = {

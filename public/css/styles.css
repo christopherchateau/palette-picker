@@ -28,7 +28,8 @@ body {
   padding: 20px;
 }
 
-.fas {
+.fa-lock,
+.fa-lock-open {
   color: white;
   cursor: pointer;
   font-size: 44px;
@@ -92,7 +93,8 @@ body {
   overflow: scroll;
 }
 
-.fas:hover {
+.fa-lock:hover,
+.fa-lock-open:hover {
   color: grey;
   filter: drop-shadow(5px 5px black);
   transition: all 0.4s ease-in-out;
@@ -111,16 +113,15 @@ body {
   outline: none;
 }
 
-
-
 /* Individual Project */
 
 .project-1 {
+  border: 10px solid silver;
   min-width: 33.3%;
   overflow: scroll;
   padding-left: 10px;
-
 }
+
 .project-name {
   font-size: 32px;
   margin-bottom: 10px;
@@ -131,22 +132,44 @@ body {
   justify-content: space-between;
 }
 
+.palette:hover {
+  background-color: grey;
+  color: white;
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
+}
+
+.fa-trash {
+  color: white;
+  font-size: 18px;
+  transition: all 0.4s ease-in-out;
+
+}
+
+.fa-trash:hover {
+  color: black;
+}
+
 .palette-colors {
   display: flex;
 }
 
 .palette-color-1 {
-  background-color: yellow;
+  background-color: blue;
 }
+
 .palette-color-2 {
   background-color: green;
 }
+
 .palette-color-3 {
   background-color: black;
 }
+
 .palette-color-4 {
   background-color: orange;
 }
+
 .palette-color-5 {
   background-color: pink;
 }
