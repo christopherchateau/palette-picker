@@ -1,6 +1,14 @@
 $(".fas").on("click", toggleLock);
 $(".refresh-colors-btn").on("click", generateRandomColors);
 
+const lockLog = {
+  color1: "unlocked",
+  color2: "unlocked",
+  color3: "unlocked",
+  color4: "unlocked",
+  color5: "unlocked"
+};
+
 function generateRandomColors() {
   const colors = [];
 
@@ -8,7 +16,9 @@ function generateRandomColors() {
     colors.push(generateRandomHexCode());
   }
   for (let i = 1; i <= 5; i++) {
-    $(`.color-${i}`).css("background-color", colors[i - 1]);
+    if ((lockLog[`color${i}`] === "unlocked")) {
+      $(`.color-${i}`).css("background-color", colors[i - 1]);
+    }
   }
 }
 
@@ -30,6 +40,15 @@ function generateRandomHexValue() {
 function toggleLock(e) {
   $(e.target).toggleClass("fa-lock-open");
   $(e.target).toggleClass("fa-lock");
+
+  const colorIndex = $(e.target)
+    .parent()
+    .attr("class")
+    .slice(-1);
+
+  $(e.target).hasClass("fa-lock")
+    ? (lockLog[`color${colorIndex}`] = "locked")
+    : (lockLog[`color${colorIndex}`] = "unlocked");
 }
 
 generateRandomColors();
