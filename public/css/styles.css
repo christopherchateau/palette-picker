@@ -17,26 +17,6 @@ body {
   grid-template-columns: repeat(5, 1fr);
 }
 
-.color-1 {
-  background: red;
-}
-
-.color-2 {
-  background: black;
-}
-
-.color-3 {
-  background: purple;
-}
-
-.color-4 {
-  background: green;
-}
-
-.color-5 {
-  background: orange;
-}
-
 .color-1,
 .color-2,
 .color-3,
@@ -54,12 +34,17 @@ body {
   font-size: 44px;
 }
 
+.fa-lock {
+  opacity: 0.7;
+}
+
 .fa-lock-open {
-  opacity: .4;
+  opacity: 0.4;
 }
 
 .refresh-colors-btn {
   background: rgb(223, 223, 223);
+  border: none;
   cursor: pointer;
   font-size: 26px;
 }
@@ -132,4 +117,8 @@ body {
   background-color: grey;
   color: white;
   transition: all 0.4s ease-in-out;
+}
+
+.refresh-colors-btn {
+  outline: none;
 }
