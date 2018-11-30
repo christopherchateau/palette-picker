@@ -92,18 +92,6 @@ body {
   overflow: scroll;
 }
 
-.project-1 {
-  width: 700px;
-}
-
-.project-2 {
-  width: 700px;
-}
-
-.project-3 {
-  width: 600px;
-}
-
 .fas:hover {
   color: grey;
   filter: drop-shadow(5px 5px black);
@@ -121,4 +109,53 @@ body {
 
 .refresh-colors-btn {
   outline: none;
+}
+
+
+
+/* Individual Project */
+
+.project-1 {
+  min-width: 33.3%;
+  overflow: scroll;
+  padding-left: 10px;
+
+}
+.project-name {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.palette {
+  display: flex;
+  justify-content: space-between;
+}
+
+.palette-colors {
+  display: flex;
+}
+
+.palette-color-1 {
+  background-color: yellow;
+}
+.palette-color-2 {
+  background-color: green;
+}
+.palette-color-3 {
+  background-color: black;
+}
+.palette-color-4 {
+  background-color: orange;
+}
+.palette-color-5 {
+  background-color: pink;
+}
+
+.palette-color-1,
+.palette-color-2,
+.palette-color-3,
+.palette-color-4,
+.palette-color-5 {
+  height: 40px;
+  width: 50px;
 }

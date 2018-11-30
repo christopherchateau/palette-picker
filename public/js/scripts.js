@@ -16,7 +16,7 @@ function generateRandomColors() {
     colors.push(generateRandomHexCode());
   }
   for (let i = 1; i <= 5; i++) {
-    if ((lockLog[`color${i}`] === "unlocked")) {
+    if (lockLog[`color${i}`] === "unlocked") {
       $(`.color-${i}`).css("background-color", colors[i - 1]);
     }
   }
