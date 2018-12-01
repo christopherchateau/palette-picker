@@ -115,7 +115,7 @@ body {
 
 /* Individual Project */
 
-.project-1 {
+.project {
   background-color: grey;
   border: 10px solid silver;
   width: 500px;
@@ -164,25 +164,20 @@ body {
   padding: 8px;
 }
 
-.palette-color-1 {
-  background-color: blue;
+/* .palette-color-1 {
 }
 
 .palette-color-2 {
-  background-color: green;
 }
 
 .palette-color-3 {
-  background-color: black;
 }
 
 .palette-color-4 {
-  background-color: orange;
 }
 
 .palette-color-5 {
-  background-color: pink;
-}
+} */
 
 .palette-color-1,
 .palette-color-2,
