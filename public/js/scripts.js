@@ -52,4 +52,11 @@ function toggleLock(e) {
     : (lockLog[`color${colorIndex}`] = "unlocked");
 }
 
+async function loadStoredProjects() {
+  const response = await fetch("api/v1/projects");
+  const projects = await response.json();
+  console.log(projects);
+}
+
 generateRandomColors();
+loadStoredProjects();

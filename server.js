@@ -7,7 +7,7 @@ const database = require("knex")(config);
 
 app.use(express.static("public"));
 app.use(bodyParser.json());
-app.set("port", process.env.PORT || 300);
+app.set("port", process.env.PORT || 3000);
 
 app.get("/api/v1/projects", (request, response) => {
   database("projects")
@@ -20,7 +20,7 @@ app.get("/api/v1/projects", (request, response) => {
     });
 });
 
-app.post("/api/v1/projects", (request, response) => {
+app.post("api/v1/projects", (request, response) => {
   const project = request.body;
 
   if (!project[name]) {
@@ -33,8 +33,8 @@ app.post("/api/v1/projects", (request, response) => {
       response.status(201).json({ id: projectIds[0] });
     })
     .catch(error => {
-      response.status(500).json({ error: error.message })
-    })
+      response.status(500).json({ error: error.message });
+    });
 });
 
 app.listen(app.get("port"), () => {

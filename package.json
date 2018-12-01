@@ -19,9 +19,12 @@
   },
   "homepage": "https://github.com/christopherchateau/palette-picker#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "connect": "^3.6.6",
     "express": "^4.16.4",
     "knex": "^0.15.2",
-    "pg": "^7.6.1"
+    "pg": "^7.6.1",
+    "serve-static": "^1.13.2"
   },
   "devDependencies": {}
 }
