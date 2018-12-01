@@ -118,7 +118,7 @@ body {
 .project {
   background-color: grey;
   border: 10px solid silver;
-  width: 500px;
+  min-width: 500px;
   overflow: scroll;
 }
 

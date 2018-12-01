@@ -23,10 +23,6 @@ app.get("/api/v1/projects", (request, response) => {
 app.post("/api/v1/projects", (request, response) => {
   const project = request.body;
 
-  if (!project[name]) {
-    response.status(422).json({ error: "Error: Must include a project name" });
-  }
-
   database("projects")
     .insert(project, "id")
     .then(projectIds => {
