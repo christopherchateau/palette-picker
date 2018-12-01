@@ -44,11 +44,11 @@ const palleteSeeds = [
     colors: [
       {
         name: "sweet colors",
-        color_1: "000000",
-        color_2: "000001",
-        color_3: "000002",
-        color_4: "000003",
-        color_5: "000004"
+        color_1: "#000000",
+        color_2: "#dddddd",
+        color_3: "#bb3a0a",
+        color_4: "#444444",
+        color_5: "#000004"
       }
     ]
   },
@@ -58,19 +58,19 @@ const palleteSeeds = [
     colors: [
       {
         name: "autumnal af",
-        color_1: "000005",
-        color_2: "000006",
-        color_3: "000007",
-        color_4: "000008",
-        color_5: "000009"
+        color_1: "#00aa07",
+        color_2: "#00aa07",
+        color_3: "#00aa07",
+        color_4: "#333333",
+        color_5: "#222222"
       },
       {
         name: "fav colors",
-        color_1: "000010",
-        color_2: "000011",
-        color_3: "000012",
-        color_4: "000013",
-        color_5: "000014"
+        color_1: "#ffffff",
+        color_2: "#000011",
+        color_3: "#00ff12",
+        color_4: "#00ff12",
+        color_5: "#00ff12"
       }
     ]
   }

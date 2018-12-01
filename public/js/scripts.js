@@ -52,4 +52,53 @@ function toggleLock(e) {
     : (lockLog[`color${colorIndex}`] = "unlocked");
 }
 
+async function loadStoredProjects() {
+  const response = await fetch("api/v1/projects");
+  const projects = await response.json();
+}
+
+async function loadStoredColors() {
+  var projectId = 2;
+
+  const response = await fetch(`api/v1/projects/${projectId}/colors`);
+  const colors = await response.json();
+  colors.forEach(palette => appendColors(palette, projectId));
+}
+
+function appendColors(palette, projectId) {
+  $(`.project`).append(`
+  
+  <div class="palette">
+    <div class="palette-name-colors">
+      <h5 class="palette-name">${palette.name}</h5>
+      <section class="palette-colors">
+        <div 
+          class="palette-color-1" 
+          style="background-color:${palette.color_1}">
+        </div>
+        <div 
+          class="palette-color-2" 
+          style="background-color:${palette.color_2}">
+        </div>
+        <div 
+          class="palette-color-3" 
+          style="background-color:${palette.color_3}">
+        </div>
+        <div 
+          class="palette-color-4" 
+          style="background-color:${palette.color_4}">
+        </div>
+        <div 
+          class="palette-color-5"
+          style="background-color:${palette.color_5}">
+        </div>
+      </section>
+    </div>
+    <i class="fas fa-trash"></i>
+  </div>
+  `);
+}
+
 generateRandomColors();
+loadStoredProjects();
+loadStoredColors();
