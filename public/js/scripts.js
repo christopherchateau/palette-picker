@@ -76,7 +76,7 @@ async function loadStoredColors(projectId) {
 async function createProject(e) {
   e.preventDefault();
 
-  const projectName = $('.project-input').val();
+  const projectName = $(".project-input").val();
   const response = await fetch("api/v1/projects/", {
     method: "POST",
     credentials: "same-origin",
@@ -84,22 +84,21 @@ async function createProject(e) {
     headers: { "Content-Type": "application/json" }
   });
   const projectId = await response.json();
-  appendProject(projectId, projectName)
+
+  appendProject(projectId, projectName);
+  $(".project-input").val("");
 }
 
-function savePalette() {
-
-
-}
+function savePalette() {}
 
 function togglePaletteBtn() {
-  $(".palette-input").val() === ''
+  $(".palette-input").val() === ""
     ? $(".save-palette-btn").prop("disabled", true)
     : $(".save-palette-btn").prop("disabled", false);
 }
 
 function toggleProjectBtn() {
-  $(".project-input").val() === ''
+  $(".project-input").val() === ""
     ? $(".create-project-btn").prop("disabled", true)
     : $(".create-project-btn").prop("disabled", false);
 }
