@@ -101,9 +101,9 @@ body {
 }
 
 .palette-drop-down:hover,
-.save-palette-btn:hover,
 .refresh-colors-btn:hover,
-.create-project-btn:hover {
+.save-palette-btn:hover:enabled,
+.create-project-btn:hover:enabled {
   background-color: grey;
   color: white;
   transition: all 0.4s ease-in-out;

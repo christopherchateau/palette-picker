@@ -1,8 +1,9 @@
 $(".fa-lock").on("click", toggleLock);
 $(".fa-lock-open").on("click", toggleLock);
 $(".refresh-colors-btn").on("click", generateRandomColors);
-$('.save-palette-btn').on('click', savePalette)
-$('.project-input').on('change', toggleProjectBtn)
+$(".save-palette-btn").on("click", savePalette);
+$(".project-input").on("keyup", toggleProjectBtn);
+$(".palette-input").on("keyup", togglePaletteBtn);
 
 const lockLog = {
   color1: "unlocked",
@@ -59,7 +60,7 @@ async function loadStoredProjects() {
   const response = await fetch("api/v1/projects");
   const projects = await response.json();
   projects.forEach(project => {
-    currentProjects.push(project)
+    currentProjects.push(project);
     appendProjects(project);
     loadStoredColors(project.id);
   });
@@ -84,12 +85,20 @@ async function storeProject(projectName) {
 
 function savePalette() {
 
+
+}
+
+function togglePaletteBtn() {
+  $(".palette-input").val() === ''
+    ? $(".save-palette-btn").prop("disabled", true)
+    : $(".save-palette-btn").prop("disabled", false);
 }
 
 function toggleProjectBtn() {
-  
+  $(".project-input").val() === ''
+    ? $(".create-project-btn").prop("disabled", true)
+    : $(".create-project-btn").prop("disabled", false);
 }
-
 
 function appendProjects(project) {
   $(".projects").append(`
@@ -136,4 +145,4 @@ function appendColors(palette, projectId) {
 
 generateRandomColors();
 loadStoredProjects();
-storeProject('test')
+storeProject("test");
