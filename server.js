@@ -20,7 +20,7 @@ app.get("/api/v1/projects", (request, response) => {
     });
 });
 
-app.post("api/v1/projects", (request, response) => {
+app.post("/api/v1/projects", (request, response) => {
   const project = request.body;
 
   if (!project[name]) {
@@ -31,6 +31,20 @@ app.post("api/v1/projects", (request, response) => {
     .insert(project, "id")
     .then(projectIds => {
       response.status(201).json({ id: projectIds[0] });
+    })
+    .catch(error => {
+      response.status(500).json({ error: error.message });
+    });
+});
+
+app.get("/api/v1/projects/:project_id/colors/", (request, response) => {
+  const { project_id } = request.params;
+
+  database("colors")
+    .where("project_id", project_id)
+    .select()
+    .then(colors => {
+      response.status(200).json(colors);
     })
     .catch(error => {
       response.status(500).json({ error: error.message });

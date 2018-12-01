@@ -55,8 +55,14 @@ function toggleLock(e) {
 async function loadStoredProjects() {
   const response = await fetch("api/v1/projects");
   const projects = await response.json();
-  console.log(projects);
+}
+
+async function loadStoredPalettes() {
+  const response = await fetch("api/v1/projects/1/colors");
+  const palettes = await response.json();
+  console.log(palettes);
 }
 
 generateRandomColors();
 loadStoredProjects();
+loadStoredPalettes();
