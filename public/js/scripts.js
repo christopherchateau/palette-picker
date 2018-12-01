@@ -57,12 +57,34 @@ async function loadStoredProjects() {
   const projects = await response.json();
 }
 
-async function loadStoredPalettes() {
+async function loadStoredColors() {
   const response = await fetch("api/v1/projects/1/colors");
-  const palettes = await response.json();
-  console.log(palettes);
+  const colors = await response.json();
+  appendColors(colors);
+}
+
+function appendColors(colors, project) {
+  $(".project-1").prepend(`
+  
+  <div class="palette">
+  <div class="palette-name-colors">
+  <h5 class="palette-name">autumnal af</h5>
+  <section class="palette-colors">
+  <div class="palette-color-1"></div>
+  <div class="palette-color-2"></div>
+  <div class="palette-color-3"></div>
+  <div class="palette-color-4"></div>
+  <div class="palette-color-5"></div>
+  </section>
+  </div>
+  <i class="fas fa-trash"></i>
+  </div>
+  `);
+  for (let i = 1; i <= 5; i++) {
+    $(`.palette-color-${i}`).css("background-color", '#' + colors[0][`color_${i}`]);
+  }
 }
 
 generateRandomColors();
 loadStoredProjects();
-loadStoredPalettes();
+loadStoredColors();
