@@ -66,7 +66,6 @@ async function loadStoredColors() {
 }
 
 function appendColors(palette, projectId) {
-  console.log(palette.color_1);
   $(`.project`).append(`
   
   <div class="palette">
