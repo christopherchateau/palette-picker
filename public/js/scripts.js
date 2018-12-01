@@ -9,6 +9,8 @@ const lockLog = {
   color4: "unlocked",
   color5: "unlocked"
 };
+const currentProjects = [];
+
 
 function generateRandomColors() {
   const colors = [];
@@ -55,18 +57,29 @@ function toggleLock(e) {
 async function loadStoredProjects() {
   const response = await fetch("api/v1/projects");
   const projects = await response.json();
-  console.log(projects);
-  projects.forEach(project => appendProjects(project));
-  loadStoredColors();
+  projects.forEach(project => {
+    currentProjects.push(project)
+    appendProjects(project);
+    loadStoredColors(project.id);
+  });
+  console.log(currentProjects)
 }
 
-async function loadStoredColors() {
-  var projectId = 2;
-
+async function loadStoredColors(projectId) {
   const response = await fetch(`api/v1/projects/${projectId}/colors`);
   const colors = await response.json();
   colors.forEach(palette => appendColors(palette, projectId));
 }
+
+// async function storeProject(project) {
+//   const response = await fetch("api/v1/projects/", {
+//     method: "POST",
+//     credentials: "same-origin",
+//     body: JSON.stringify(project),
+//     headers: { "Content-Type": "application/json" }
+//   });
+//   const
+// }
 
 function appendProjects(project) {
   $(".projects").append(`
@@ -113,4 +126,3 @@ function appendColors(palette, projectId) {
 
 generateRandomColors();
 loadStoredProjects();
-//loadStoredColors();
