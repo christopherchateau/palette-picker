@@ -1,10 +1,10 @@
 $(".fa-lock").on("click", toggleLock);
 $(".fa-lock-open").on("click", toggleLock);
 $(".refresh-colors-btn").on("click", generateRandomColors);
-$(".save-palette-btn").on("click", savePalette);
+$(".create-palette-btn").on("click", handleCreatePaletteClick);
 $(".create-project-btn").on("click", handleCreateProjectClick);
-$(".project-input").on("keyup", toggleProjectBtn);
-$(".palette-input").on("keyup", togglePaletteBtn);
+$(".project-input").on("keyup", toggleButton);
+$(".palette-input").on("keyup", toggleButton);
 
 const lockLog = {
   color1: "unlocked",
@@ -89,7 +89,7 @@ function handleCreateProjectClick(e) {
     addProjectstoDropdown(projectName);
     currentProjects.push(projectName);
     $(".project-input").val("");
-    toggleProjectBtn();
+    $(".create-project-btn").prop("disabled", true);
   }
 }
 
@@ -108,18 +108,23 @@ function stopDuplicateProjectNames(name) {
   return !currentProjects.includes(name);
 }
 
-function savePalette() {}
-
-function togglePaletteBtn() {
-  !$(".palette-input").length
-    ? $(".save-palette-btn").prop("disabled", true)
-    : $(".save-palette-btn").prop("disabled", false);
+function handleCreatePaletteClick(e) {
+  e.preventDefault();
+  const paletteName = $(".palette-input").val();
+  createPalette(paletteName);
+  $(".palette-input").val("");
+  $(".create-palette-btn").prop("disabled", true);
 }
 
-function toggleProjectBtn() {
-  $(".project-input").val() === ""
-    ? $(".create-project-btn").prop("disabled", true)
-    : $(".create-project-btn").prop("disabled", false);
+async function createPalette(name) {}
+
+function toggleButton(e) {
+  const button = $(e.target)
+    .attr("class")
+    .slice(0, 7);
+  $(`.${button}-input`).val() === ""
+    ? $(`.create-${button}-btn`).prop("disabled", true)
+    : $(`.create-${button}-btn`).prop("disabled", false);
 }
 
 function appendProject(id, name) {

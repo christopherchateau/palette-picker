@@ -55,13 +55,13 @@ body {
 }
 
 .project-drop-down,
-.save-palette-btn {
+.create-palette-btn {
   cursor: pointer;
 }
 
 .palette-input,
 .project-drop-down,
-.save-palette-btn {
+.create-palette-btn {
   font-size: 20px;
   width: 20%;
 }
@@ -102,7 +102,7 @@ body {
 
 .project-drop-down:hover,
 .refresh-colors-btn:hover,
-.save-palette-btn:hover:enabled,
+.create-palette-btn:hover:enabled,
 .create-project-btn:hover:enabled {
   background-color: grey;
   color: white;
