@@ -61,7 +61,7 @@ async function loadStoredProjects() {
   const response = await fetch("api/v1/projects");
   const projects = await response.json();
   projects.forEach(project => {
-    currentProjects.push(project);
+    currentProjects.push(project.name);
     appendProject(project.id, project.name);
     loadStoredColors(project.id);
     addProjectstoDropdown(project.name);
@@ -82,18 +82,27 @@ async function loadStoredColors(projectId) {
 
 async function createProject(e) {
   e.preventDefault();
-
   const projectName = $(".project-input").val();
-  const response = await fetch("api/v1/projects/", {
-    method: "POST",
-    credentials: "same-origin",
-    body: JSON.stringify({ name: projectName }),
-    headers: { "Content-Type": "application/json" }
-  });
-  const projectId = await response.json();
 
-  appendProject(projectId, projectName);
-  $(".project-input").val("");
+  if (stopDuplicateProjectNames(projectName)) {
+    const response = await fetch("api/v1/projects/", {
+      method: "POST",
+      credentials: "same-origin",
+      body: JSON.stringify({ name: projectName }),
+      headers: { "Content-Type": "application/json" }
+    });
+    const projectId = await response.json();
+
+    appendProject(projectId, projectName);
+    addProjectstoDropdown(projectName);
+    currentProjects.push(projectName);
+    $(".project-input").val("");
+    toggleProjectBtn();
+  }
+}
+
+function stopDuplicateProjectNames(name) {
+  return !currentProjects.includes(name);
 }
 
 function savePalette() {}
