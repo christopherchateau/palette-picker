@@ -64,7 +64,14 @@ async function loadStoredProjects() {
     currentProjects.push(project);
     appendProject(project.id, project.name);
     loadStoredColors(project.id);
+    addProjectstoDropdown(project.name);
   });
+}
+
+function addProjectstoDropdown(name) {
+  $(".project-drop-down").append(`
+    <option value="${name}">${name}</option>
+  `);
 }
 
 async function loadStoredColors(projectId) {
@@ -92,7 +99,7 @@ async function createProject(e) {
 function savePalette() {}
 
 function togglePaletteBtn() {
-  $(".palette-input").val() === ""
+  !$(".palette-input").length
     ? $(".save-palette-btn").prop("disabled", true)
     : $(".save-palette-btn").prop("disabled", false);
 }
