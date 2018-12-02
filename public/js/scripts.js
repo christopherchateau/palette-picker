@@ -1,6 +1,10 @@
 $(".fa-lock").on("click", toggleLock);
 $(".fa-lock-open").on("click", toggleLock);
 $(".refresh-colors-btn").on("click", generateRandomColors);
+$(".save-palette-btn").on("click", savePalette);
+$(".create-project-btn").on("click", createProject);
+$(".project-input").on("keyup", toggleProjectBtn);
+$(".palette-input").on("keyup", togglePaletteBtn);
 
 const lockLog = {
   color1: "unlocked",
@@ -9,6 +13,7 @@ const lockLog = {
   color4: "unlocked",
   color5: "unlocked"
 };
+const currentProjects = [];
 
 function generateRandomColors() {
   const colors = [];
@@ -55,50 +60,98 @@ function toggleLock(e) {
 async function loadStoredProjects() {
   const response = await fetch("api/v1/projects");
   const projects = await response.json();
+  projects.forEach(project => {
+    currentProjects.push(project);
+    appendProject(project.id, project.name);
+    loadStoredColors(project.id);
+    addProjectstoDropdown(project.name);
+  });
 }
 
-async function loadStoredColors() {
-  var projectId = 2;
+function addProjectstoDropdown(name) {
+  $(".project-drop-down").append(`
+    <option value="${name}">${name}</option>
+  `);
+}
 
+async function loadStoredColors(projectId) {
   const response = await fetch(`api/v1/projects/${projectId}/colors`);
   const colors = await response.json();
   colors.forEach(palette => appendColors(palette, projectId));
 }
 
+async function createProject(e) {
+  e.preventDefault();
+
+  const projectName = $(".project-input").val();
+  const response = await fetch("api/v1/projects/", {
+    method: "POST",
+    credentials: "same-origin",
+    body: JSON.stringify({ name: projectName }),
+    headers: { "Content-Type": "application/json" }
+  });
+  const projectId = await response.json();
+
+  appendProject(projectId, projectName);
+  $(".project-input").val("");
+}
+
+function savePalette() {}
+
+function togglePaletteBtn() {
+  !$(".palette-input").length
+    ? $(".save-palette-btn").prop("disabled", true)
+    : $(".save-palette-btn").prop("disabled", false);
+}
+
+function toggleProjectBtn() {
+  $(".project-input").val() === ""
+    ? $(".create-project-btn").prop("disabled", true)
+    : $(".create-project-btn").prop("disabled", false);
+}
+
+function appendProject(id, name) {
+  $(".projects").prepend(`
+
+    <section class="project">
+      <h3 class="${id} project-name">${name}</h3>
+    </section>
+  `);
+}
+
 function appendColors(palette, projectId) {
-  $(`.project`).append(`
+  $(`.${projectId}`).append(`
   
-  <div class="palette">
-    <div class="palette-name-colors">
-      <h5 class="palette-name">${palette.name}</h5>
-      <section class="palette-colors">
-        <div 
-          class="palette-color-1" 
-          style="background-color:${palette.color_1}">
-        </div>
-        <div 
-          class="palette-color-2" 
-          style="background-color:${palette.color_2}">
-        </div>
-        <div 
-          class="palette-color-3" 
-          style="background-color:${palette.color_3}">
-        </div>
-        <div 
-          class="palette-color-4" 
-          style="background-color:${palette.color_4}">
-        </div>
-        <div 
-          class="palette-color-5"
-          style="background-color:${palette.color_5}">
-        </div>
-      </section>
+    <div class="palette">
+      <div class="palette-name-colors">
+        <h5 class="palette-name">${palette.name}</h5>
+        <section class="palette-colors">
+          <div 
+            class="palette-color-1" 
+            style="background-color:${palette.color_1}">
+          </div>
+          <div 
+            class="palette-color-2" 
+            style="background-color:${palette.color_2}">
+          </div>
+          <div 
+            class="palette-color-3" 
+            style="background-color:${palette.color_3}">
+          </div>
+          <div 
+            class="palette-color-4" 
+            style="background-color:${palette.color_4}">
+          </div>
+          <div 
+            class="palette-color-5"
+            style="background-color:${palette.color_5}">
+          </div>
+        </section>
+      </div>
+      <i class="fas fa-trash"></i>
     </div>
-    <i class="fas fa-trash"></i>
-  </div>
   `);
 }
 
 generateRandomColors();
 loadStoredProjects();
-loadStoredColors();
