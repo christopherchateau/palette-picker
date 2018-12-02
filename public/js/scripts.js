@@ -2,7 +2,7 @@ $(".fa-lock").on("click", toggleLock);
 $(".fa-lock-open").on("click", toggleLock);
 $(".refresh-colors-btn").on("click", generateRandomColors);
 $(".save-palette-btn").on("click", savePalette);
-$(".create-project-btn").on("click", createProject);
+$(".create-project-btn").on("click", handleCreateProjectClick);
 $(".project-input").on("keyup", toggleProjectBtn);
 $(".palette-input").on("keyup", togglePaletteBtn);
 
@@ -80,25 +80,28 @@ async function loadStoredColors(projectId) {
   colors.forEach(palette => appendColors(palette, projectId));
 }
 
-async function createProject(e) {
+function handleCreateProjectClick(e) {
   e.preventDefault();
   const projectName = $(".project-input").val();
 
   if (stopDuplicateProjectNames(projectName)) {
-    const response = await fetch("api/v1/projects/", {
-      method: "POST",
-      credentials: "same-origin",
-      body: JSON.stringify({ name: projectName }),
-      headers: { "Content-Type": "application/json" }
-    });
-    const projectId = await response.json();
-
-    appendProject(projectId, projectName);
+    createProject(projectName);
     addProjectstoDropdown(projectName);
     currentProjects.push(projectName);
     $(".project-input").val("");
     toggleProjectBtn();
   }
+}
+
+async function createProject(name) {
+  const response = await fetch("api/v1/projects/", {
+    method: "POST",
+    credentials: "same-origin",
+    body: JSON.stringify({ name }),
+    headers: { "Content-Type": "application/json" }
+  });
+  const projectId = await response.json();
+  appendProject(projectId, name);
 }
 
 function stopDuplicateProjectNames(name) {
