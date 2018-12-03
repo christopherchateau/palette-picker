@@ -13,11 +13,11 @@
 
 ### Desktop Screenshot
 
-<img src="https://github.com/christopherchateau/palette-picker/blob/master/images/pp-desktop.png" width="400px" />
+<img src="https://github.com/christopherchateau/palette-picker/blob/master/images/pp-desktop.png" width="800px" />
 
 ### Tablet Screenshot
 
-<img src="https://github.com/christopherchateau/palette-picker/blob/master/images/pp-tablet.png" width="400px" />
+<img src="https://github.com/christopherchateau/palette-picker/blob/master/images/pp-tablet.png" width="600px" />
 
 ### Mobile Screenshot
 
@@ -25,7 +25,7 @@
 
 ### Wireframes
 
-<img src="https://github.com/christopherchateau/palette-picker/blob/master/images/wire-frame.jpg" width="400px" />
+<img src="https://github.com/christopherchateau/palette-picker/blob/master/images/wire-frame.jpg" width="300px" />
 
 ### Original Assignment
 
