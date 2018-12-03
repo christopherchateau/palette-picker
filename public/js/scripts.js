@@ -185,6 +185,7 @@ async function handleDeleteClick(e) {
   });
   currentProjects = [];
   currentPalettes = [];
+  $(".projects").html("");
   loadStoredProjects();
 }
 
