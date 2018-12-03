@@ -24,6 +24,7 @@ function generateRandomColors() {
   for (let i = 1; i <= 5; i++) {
     if (lockLog[`color${i}`] === "unlocked") {
       $(`.color-${i}`).css("background-color", colors[i - 1]);
+      $(`.color-${i}`).attr("hex-value", colors[i - 1]);
     }
   }
 }
@@ -61,7 +62,7 @@ async function loadStoredProjects() {
   const response = await fetch("api/v1/projects");
   const projects = await response.json();
   projects.forEach(project => {
-    currentProjects.push(project);
+    addToCurrentProjects(project.name, project.id);
     appendProject(project.name, project.id);
     loadStoredColors(project.id);
     addProjectstoDropdown(project.name);
@@ -85,14 +86,14 @@ function handleCreateProjectClick(e) {
   const projectName = $(".project-input").val();
 
   if (stopDuplicateProjectNames(projectName)) {
-    createProject(projectName);
+    storeProject(projectName);
     addProjectstoDropdown(projectName);
     $(".project-input").val("");
     $(".create-project-btn").prop("disabled", true);
   }
 }
 
-async function createProject(name) {
+async function storeProject(name) {
   const response = await fetch("api/v1/projects/", {
     method: "POST",
     credentials: "same-origin",
@@ -114,17 +115,22 @@ function addToCurrentProjects(name, id) {
 }
 
 function handleCreatePaletteClick(e) {
-  console.log(currentProjects);
-  //$(".project-drop-down")
   e.preventDefault();
+  const projectName = $(".project-drop-down").val();
+  const project = currentProjects.find(proj => proj.name === projectName);
   const paletteName = $(".palette-input").val();
-  createPalette(paletteName);
+
+  //palette = createPalette()
+  console.log($(".color-1").css("background-color"));
+  //storePalette(paletteName, project.id);
   $(".palette-input").val("");
   $(".create-palette-btn").prop("disabled", true);
 }
 
-async function createPalette(name) {
-  const response = await fetch("api/v1/projects/:project_id/colors/", {
+function createPalette() {}
+
+async function storePalette(name, id) {
+  const response = await fetch(`api/v1/projects/${id}/colors/`, {
     method: "POST",
     credentials: "same-origin",
     body: JSON.stringify({ name }),
