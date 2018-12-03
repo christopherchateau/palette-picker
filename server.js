@@ -48,17 +48,16 @@ app.get("/api/v1/projects/:project_id/colors/", (request, response) => {
 });
 
 app.post("/api/v1/projects/:project_id/colors/", (request, response) => {
-  //const { project_id } = request.params;
   const colors = request.body;
   console.log(colors)
-  // database("colors")
-  //   .insert(colors, "id")
-  //   .then(projectIds => {
-  //     response.status(201).json({ id: projectIds[0] });
-  //   })
-  //   .catch(error => {
-  //     response.status(500).json({ error: error.message });
-  //   });
+  database("colors")
+    .insert(colors, "id")
+    .then(projectIds => {
+      response.status(201).json({ id: projectIds[0] });
+    })
+    .catch(error => {
+      response.status(500).json({ error: error.message });
+    });
 });
 
 app.listen(app.get("port"), () => {

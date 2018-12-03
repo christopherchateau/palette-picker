@@ -78,7 +78,7 @@ function addProjectstoDropdown(name) {
 async function loadStoredColors(projectId) {
   const response = await fetch(`api/v1/projects/${projectId}/colors`);
   const colors = await response.json();
-  colors.forEach(palette => appendColors(palette, projectId));
+  colors.forEach(palette => appendPalette(palette));
 }
 
 function handleCreateProjectClick(e) {
@@ -120,32 +120,33 @@ function handleCreatePaletteClick(e) {
   const project = currentProjects.find(proj => proj.name === projectName);
   const paletteName = $(".palette-input").val();
 
-  palette = createPalette(paletteName);
+  palette = createPalette(paletteName, project.id);
   storePalette(project.id, palette);
   $(".palette-input").val("");
   $(".create-palette-btn").prop("disabled", true);
 }
 
-function createPalette(name) {
+function createPalette(name, id) {
   const palette = {};
   palette.name = name;
+  palette.project_id = id;
   for (let i = 1; i <= 5; i++) {
-    const hexCode = $(`.color-${i}`).attr("hex-value")
-    palette[`color_${i}`] = hexCode
+    const hexCode = $(`.color-${i}`).attr("hex-value");
+    palette[`color_${i}`] = hexCode;
   }
   return palette;
 }
 
-async function storePalette(id, name, colors) {
+async function storePalette(id, colors) {
   const response = await fetch(`api/v1/projects/${id}/colors/`, {
     method: "POST",
     credentials: "same-origin",
-    body: JSON.stringify({ name, id, colors }),
+    body: JSON.stringify(colors),
     headers: { "Content-Type": "application/json" }
   });
   const asdf = await response.json();
   console.log(asdf);
-  //appendProject(projectId, name);
+  //appendPalette(projectId, name);
 }
 
 function toggleButton(e) {
@@ -166,8 +167,8 @@ function appendProject(name, id) {
   `);
 }
 
-function appendColors(palette, projectId) {
-  $(`.${projectId}`).append(`
+function appendPalette(palette) {
+  $(`.${palette.project_id}`).append(`
   
     <div class="palette">
       <div class="palette-name-colors">
