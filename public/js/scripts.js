@@ -144,9 +144,7 @@ async function storePalette(id, colors) {
     body: JSON.stringify(colors),
     headers: { "Content-Type": "application/json" }
   });
-  const asdf = await response.json();
-  console.log(asdf);
-  //appendPalette(projectId, name);
+  appendPalette(colors);
 }
 
 function toggleButton(e) {
