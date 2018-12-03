@@ -186,6 +186,7 @@ async function handleDeleteClick(e) {
   currentProjects = [];
   currentPalettes = [];
   $(".projects").html("");
+  $('.project-drop-down').html("")
   loadStoredProjects();
 }
 
