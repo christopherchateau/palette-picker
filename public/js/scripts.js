@@ -5,6 +5,7 @@ $(".create-palette-btn").on("click", handleCreatePaletteClick);
 $(".create-project-btn").on("click", handleCreateProjectClick);
 $(".project-input").on("keyup", toggleButton);
 $(".palette-input").on("keyup", toggleButton);
+$(".projects").on("click", ".palette-name-colors", handlePaletteClick);
 
 const lockLog = {
   color1: "unlocked",
@@ -14,6 +15,7 @@ const lockLog = {
   color5: "unlocked"
 };
 const currentProjects = [];
+const currentPalettes = [];
 
 function generateRandomColors() {
   const colors = [];
@@ -21,12 +23,7 @@ function generateRandomColors() {
   while (colors.length < 5) {
     colors.push(generateRandomHexCode());
   }
-  for (let i = 1; i <= 5; i++) {
-    if (lockLog[`color${i}`] === "unlocked") {
-      $(`.color-${i}`).css("background-color", colors[i - 1]);
-      $(`.color-${i}`).attr("hex-value", colors[i - 1]);
-    }
-  }
+  displayColors(colors);
 }
 
 function generateRandomHexCode() {
@@ -42,6 +39,15 @@ function generateRandomHexValue() {
   const values = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "a", "b", "c", "d", "e", "f"];
   const randomIndex = Math.floor(Math.random() * 16);
   return values[randomIndex];
+}
+
+function displayColors(colors) {
+  for (let i = 1; i <= 5; i++) {
+    if (lockLog[`color${i}`] === "unlocked") {
+      $(`.color-${i}`).css("background-color", colors[i - 1]);
+      $(`.color-${i}`).attr("hex-value", colors[i - 1]);
+    }
+  }
 }
 
 function toggleLock(e) {
@@ -78,7 +84,10 @@ function addProjectstoDropdown(name) {
 async function loadStoredColors(projectId) {
   const response = await fetch(`api/v1/projects/${projectId}/colors`);
   const colors = await response.json();
-  colors.forEach(palette => appendPalette(palette));
+  colors.forEach(palette => {
+    appendPalette(palette);
+    currentPalettes.push(palette);
+  });
 }
 
 function handleCreateProjectClick(e) {
@@ -122,6 +131,7 @@ function handleCreatePaletteClick(e) {
 
   palette = createPalette(paletteName, project.id);
   storePalette(project.id, palette);
+  currentPalettes.push(palette);
   $(".palette-input").val("");
   $(".create-palette-btn").prop("disabled", true);
 }
@@ -145,6 +155,20 @@ async function storePalette(id, colors) {
     headers: { "Content-Type": "application/json" }
   });
   appendPalette(colors);
+}
+
+function handlePaletteClick(e) {
+  paletteName = $(e.target).closest(".palette")[0].innerText;
+  currentPalette = currentPalettes.find(
+    palette => palette.name === paletteName
+  );
+  for (let i = 1; i <= 5; i++) {
+    lockLog[`color${i}`] = "unlocked";
+    $(`.color-${i}`).css("background-color", currentPalette[`color_${i}`]);
+    $(`.color-${i}`).attr("hex-value", currentPalette[`color_${i}`]);
+  }
+  $(`.fas`).removeClass("fa-lock");
+  $(`.fas`).addClass("fa-lock-open");
 }
 
 function toggleButton(e) {
