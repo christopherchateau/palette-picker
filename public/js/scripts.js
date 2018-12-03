@@ -6,6 +6,7 @@ $(".create-project-btn").on("click", handleCreateProjectClick);
 $(".project-input").on("keyup", toggleButton);
 $(".palette-input").on("keyup", toggleButton);
 $(".projects").on("click", ".palette-name-colors", handlePaletteClick);
+$(".projects").on("click", ".fa-trash", handleDeleteClick);
 
 const lockLog = {
   color1: "unlocked",
@@ -14,8 +15,8 @@ const lockLog = {
   color4: "unlocked",
   color5: "unlocked"
 };
-const currentProjects = [];
-const currentPalettes = [];
+let currentProjects = [];
+let currentPalettes = [];
 
 function generateRandomColors() {
   const colors = [];
@@ -131,7 +132,6 @@ function handleCreatePaletteClick(e) {
 
   palette = createPalette(paletteName, project.id);
   storePalette(project.id, palette);
-  currentPalettes.push(palette);
   $(".palette-input").val("");
   $(".create-palette-btn").prop("disabled", true);
 }
@@ -147,13 +147,16 @@ function createPalette(name, id) {
   return palette;
 }
 
-async function storePalette(id, colors) {
-  const response = await fetch(`api/v1/projects/${id}/colors/`, {
+async function storePalette(project_id, colors) {
+  const response = await fetch(`api/v1/projects/${project_id}/colors/`, {
     method: "POST",
     credentials: "same-origin",
     body: JSON.stringify(colors),
     headers: { "Content-Type": "application/json" }
   });
+  const { id } = await response.json();
+  colors.id = id;
+  currentPalettes.push(colors);
   appendPalette(colors);
 }
 
@@ -169,6 +172,20 @@ function handlePaletteClick(e) {
   }
   $(`.fas`).removeClass("fa-lock");
   $(`.fas`).addClass("fa-lock-open");
+}
+
+async function handleDeleteClick(e) {
+  const paletteName = $(e.target).closest(".palette")[0].innerText;
+  let { id } = currentPalettes.find(palette => palette.name === paletteName);
+
+  const response = await fetch(`api/v1/colors/${id}`, {
+    method: "DELETE",
+    credentials: "same-origin",
+    headers: { "Content-Type": "application/json" }
+  });
+  currentProjects = [];
+  currentPalettes = [];
+  loadStoredProjects();
 }
 
 function toggleButton(e) {
