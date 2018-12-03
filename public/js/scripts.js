@@ -120,24 +120,31 @@ function handleCreatePaletteClick(e) {
   const project = currentProjects.find(proj => proj.name === projectName);
   const paletteName = $(".palette-input").val();
 
-  //palette = createPalette()
-  console.log($(".color-1").css("background-color"));
-  //storePalette(paletteName, project.id);
+  palette = createPalette(paletteName);
+  storePalette(project.id, palette);
   $(".palette-input").val("");
   $(".create-palette-btn").prop("disabled", true);
 }
 
-function createPalette() {}
+function createPalette(name) {
+  const palette = {};
+  palette.name = name;
+  for (let i = 1; i <= 5; i++) {
+    const hexCode = $(`.color-${i}`).attr("hex-value")
+    palette[`color_${i}`] = hexCode
+  }
+  return palette;
+}
 
-async function storePalette(name, id) {
+async function storePalette(id, name, colors) {
   const response = await fetch(`api/v1/projects/${id}/colors/`, {
     method: "POST",
     credentials: "same-origin",
-    body: JSON.stringify({ name }),
+    body: JSON.stringify({ name, id, colors }),
     headers: { "Content-Type": "application/json" }
   });
-  const colors = await response.json();
-  //console.log(colors);
+  const asdf = await response.json();
+  console.log(asdf);
   //appendProject(projectId, name);
 }
 
