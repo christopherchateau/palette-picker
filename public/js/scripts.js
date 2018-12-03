@@ -106,7 +106,7 @@ async function storeProject(name) {
 }
 
 function stopDuplicateProjectNames(name) {
-  return !currentProjects.includes(name);
+  return !currentProjects.find(proj => proj.name === name);
 }
 
 function addToCurrentProjects(name, id) {
