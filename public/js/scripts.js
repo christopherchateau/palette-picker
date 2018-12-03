@@ -61,8 +61,8 @@ async function loadStoredProjects() {
   const response = await fetch("api/v1/projects");
   const projects = await response.json();
   projects.forEach(project => {
-    currentProjects.push(project.name);
-    appendProject(project.id, project.name);
+    currentProjects.push(project);
+    appendProject(project.name, project.id);
     loadStoredColors(project.id);
     addProjectstoDropdown(project.name);
   });
@@ -87,7 +87,6 @@ function handleCreateProjectClick(e) {
   if (stopDuplicateProjectNames(projectName)) {
     createProject(projectName);
     addProjectstoDropdown(projectName);
-    currentProjects.push(projectName);
     $(".project-input").val("");
     $(".create-project-btn").prop("disabled", true);
   }
@@ -101,14 +100,22 @@ async function createProject(name) {
     headers: { "Content-Type": "application/json" }
   });
   const projectId = await response.json();
-  appendProject(projectId, name);
+  addToCurrentProjects(name, projectId.id);
+  appendProject(name, projectId.id);
 }
 
 function stopDuplicateProjectNames(name) {
   return !currentProjects.includes(name);
 }
 
+function addToCurrentProjects(name, id) {
+  const project = { name, id };
+  currentProjects.push(project);
+}
+
 function handleCreatePaletteClick(e) {
+  console.log(currentProjects);
+  //$(".project-drop-down")
   e.preventDefault();
   const paletteName = $(".palette-input").val();
   createPalette(paletteName);
@@ -116,7 +123,17 @@ function handleCreatePaletteClick(e) {
   $(".create-palette-btn").prop("disabled", true);
 }
 
-async function createPalette(name) {}
+async function createPalette(name) {
+  const response = await fetch("api/v1/projects/:project_id/colors/", {
+    method: "POST",
+    credentials: "same-origin",
+    body: JSON.stringify({ name }),
+    headers: { "Content-Type": "application/json" }
+  });
+  const colors = await response.json();
+  //console.log(colors);
+  //appendProject(projectId, name);
+}
 
 function toggleButton(e) {
   const button = $(e.target)
@@ -127,7 +144,7 @@ function toggleButton(e) {
     : $(`.create-${button}-btn`).prop("disabled", false);
 }
 
-function appendProject(id, name) {
+function appendProject(name, id) {
   $(".projects").prepend(`
 
     <section class="project">
