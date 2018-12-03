@@ -55,13 +55,13 @@ body {
 }
 
 .project-drop-down,
-.save-palette-btn {
+.create-palette-btn {
   cursor: pointer;
 }
 
 .palette-input,
 .project-drop-down,
-.save-palette-btn {
+.create-palette-btn {
   font-size: 20px;
   width: 20%;
 }
@@ -102,7 +102,7 @@ body {
 
 .project-drop-down:hover,
 .refresh-colors-btn:hover,
-.save-palette-btn:hover:enabled,
+.create-palette-btn:hover:enabled,
 .create-project-btn:hover:enabled {
   background-color: grey;
   color: white;
@@ -172,4 +172,37 @@ body {
 .palette-color-5 {
   height: 40px;
   width: 80px;
+}
+
+@media screen and (max-width: 800px) {
+  .palette-input,
+  .project-drop-down,
+  .create-palette-btn {
+    font-size: 16px;
+    width: 30%;
+  }
+  .project-input,
+  .create-project-btn {
+    font-size: 16px;
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .project {
+    min-width: 400px;
+  }
+
+  .palette-color-1,
+  .palette-color-2,
+  .palette-color-3,
+  .palette-color-4,
+  .palette-color-5 {
+    width: 60px;
+  }
+
+  .fa-lock,
+  .fa-lock-open {
+    font-size: 34px;
+  }
 }

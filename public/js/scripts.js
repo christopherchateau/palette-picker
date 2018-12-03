@@ -1,10 +1,12 @@
 $(".fa-lock").on("click", toggleLock);
 $(".fa-lock-open").on("click", toggleLock);
 $(".refresh-colors-btn").on("click", generateRandomColors);
-$(".save-palette-btn").on("click", savePalette);
-$(".create-project-btn").on("click", createProject);
-$(".project-input").on("keyup", toggleProjectBtn);
-$(".palette-input").on("keyup", togglePaletteBtn);
+$(".create-palette-btn").on("click", handleCreatePaletteClick);
+$(".create-project-btn").on("click", handleCreateProjectClick);
+$(".project-input").on("keyup", toggleButton);
+$(".palette-input").on("keyup", toggleButton);
+$(".projects").on("click", ".palette-name-colors", handlePaletteClick);
+$(".projects").on("click", ".fa-trash", handleDeleteClick);
 
 const lockLog = {
   color1: "unlocked",
@@ -13,7 +15,8 @@ const lockLog = {
   color4: "unlocked",
   color5: "unlocked"
 };
-const currentProjects = [];
+let currentProjects = [];
+let currentPalettes = [];
 
 function generateRandomColors() {
   const colors = [];
@@ -21,11 +24,7 @@ function generateRandomColors() {
   while (colors.length < 5) {
     colors.push(generateRandomHexCode());
   }
-  for (let i = 1; i <= 5; i++) {
-    if (lockLog[`color${i}`] === "unlocked") {
-      $(`.color-${i}`).css("background-color", colors[i - 1]);
-    }
-  }
+  displayColors(colors);
 }
 
 function generateRandomHexCode() {
@@ -41,6 +40,15 @@ function generateRandomHexValue() {
   const values = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "a", "b", "c", "d", "e", "f"];
   const randomIndex = Math.floor(Math.random() * 16);
   return values[randomIndex];
+}
+
+function displayColors(colors) {
+  for (let i = 1; i <= 5; i++) {
+    if (lockLog[`color${i}`] === "unlocked") {
+      $(`.color-${i}`).css("background-color", colors[i - 1]);
+      $(`.color-${i}`).attr("hex-value", colors[i - 1]);
+    }
+  }
 }
 
 function toggleLock(e) {
@@ -61,8 +69,8 @@ async function loadStoredProjects() {
   const response = await fetch("api/v1/projects");
   const projects = await response.json();
   projects.forEach(project => {
-    currentProjects.push(project);
-    appendProject(project.id, project.name);
+    addToCurrentProjects(project.name, project.id);
+    appendProject(project.name, project.id);
     loadStoredColors(project.id);
     addProjectstoDropdown(project.name);
   });
@@ -77,40 +85,121 @@ function addProjectstoDropdown(name) {
 async function loadStoredColors(projectId) {
   const response = await fetch(`api/v1/projects/${projectId}/colors`);
   const colors = await response.json();
-  colors.forEach(palette => appendColors(palette, projectId));
+  colors.forEach(palette => {
+    appendPalette(palette);
+    currentPalettes.push(palette);
+  });
 }
 
-async function createProject(e) {
+function handleCreateProjectClick(e) {
   e.preventDefault();
-
   const projectName = $(".project-input").val();
+
+  if (stopDuplicateProjectNames(projectName)) {
+    storeProject(projectName);
+    addProjectstoDropdown(projectName);
+    $(".project-input").val("");
+    $(".create-project-btn").prop("disabled", true);
+  }
+}
+
+async function storeProject(name) {
   const response = await fetch("api/v1/projects/", {
     method: "POST",
     credentials: "same-origin",
-    body: JSON.stringify({ name: projectName }),
+    body: JSON.stringify({ name }),
     headers: { "Content-Type": "application/json" }
   });
   const projectId = await response.json();
-
-  appendProject(projectId, projectName);
-  $(".project-input").val("");
+  addToCurrentProjects(name, projectId.id);
+  appendProject(name, projectId.id);
 }
 
-function savePalette() {}
-
-function togglePaletteBtn() {
-  !$(".palette-input").length
-    ? $(".save-palette-btn").prop("disabled", true)
-    : $(".save-palette-btn").prop("disabled", false);
+function stopDuplicateProjectNames(name) {
+  return !currentProjects.find(proj => proj.name === name);
 }
 
-function toggleProjectBtn() {
-  $(".project-input").val() === ""
-    ? $(".create-project-btn").prop("disabled", true)
-    : $(".create-project-btn").prop("disabled", false);
+function addToCurrentProjects(name, id) {
+  const project = { name, id };
+  currentProjects.push(project);
 }
 
-function appendProject(id, name) {
+function handleCreatePaletteClick(e) {
+  e.preventDefault();
+  const projectName = $(".project-drop-down").val();
+  const project = currentProjects.find(proj => proj.name === projectName);
+  const paletteName = $(".palette-input").val();
+
+  palette = createPalette(paletteName, project.id);
+  storePalette(project.id, palette);
+  $(".palette-input").val("");
+  $(".create-palette-btn").prop("disabled", true);
+}
+
+function createPalette(name, id) {
+  const palette = {};
+  palette.name = name;
+  palette.project_id = id;
+  for (let i = 1; i <= 5; i++) {
+    const hexCode = $(`.color-${i}`).attr("hex-value");
+    palette[`color_${i}`] = hexCode;
+  }
+  return palette;
+}
+
+async function storePalette(project_id, colors) {
+  const response = await fetch(`api/v1/projects/${project_id}/colors/`, {
+    method: "POST",
+    credentials: "same-origin",
+    body: JSON.stringify(colors),
+    headers: { "Content-Type": "application/json" }
+  });
+  const { id } = await response.json();
+  colors.id = id;
+  currentPalettes.push(colors);
+  appendPalette(colors);
+}
+
+function handlePaletteClick(e) {
+  paletteName = $(e.target).closest(".palette")[0].innerText;
+  currentPalette = currentPalettes.find(
+    palette => palette.name === paletteName
+  );
+  for (let i = 1; i <= 5; i++) {
+    lockLog[`color${i}`] = "unlocked";
+    $(`.color-${i}`).css("background-color", currentPalette[`color_${i}`]);
+    $(`.color-${i}`).attr("hex-value", currentPalette[`color_${i}`]);
+  }
+  $(`.fas`).removeClass("fa-lock");
+  $(`.fas`).addClass("fa-lock-open");
+}
+
+async function handleDeleteClick(e) {
+  const paletteName = $(e.target).closest(".palette")[0].innerText;
+  let { id } = currentPalettes.find(palette => palette.name === paletteName);
+
+  const response = await fetch(`api/v1/colors/${id}`, {
+    method: "DELETE",
+    credentials: "same-origin",
+    headers: { "Content-Type": "application/json" }
+  });
+  currentProjects = [];
+  currentPalettes = [];
+  $(".projects").html("");
+  $('.project-drop-down').html("")
+  loadStoredProjects();
+}
+
+function toggleButton(e) {
+  const button = $(e.target)
+    .attr("class")
+    .slice(0, 7);
+  $(`.${button}-input`).val() === ""
+    ? $(`.create-${button}-btn`).prop("disabled", true)
+    : $(`.create-${button}-btn`).prop("disabled", false);
+}
+
+function appendProject(name, id) {
   $(".projects").prepend(`
 
     <section class="project">
@@ -119,8 +208,8 @@ function appendProject(id, name) {
   `);
 }
 
-function appendColors(palette, projectId) {
-  $(`.${projectId}`).append(`
+function appendPalette(palette) {
+  $(`.${palette.project_id}`).append(`
   
     <div class="palette">
       <div class="palette-name-colors">

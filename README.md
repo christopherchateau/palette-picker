@@ -1,16 +1,9 @@
 # Palette Picker
 
-### See it Live
-[Coming Soon]()
-
 ### Primary Technologie(s)
 * Vanilla JavaScript
+* JQuery
 * Express.js
-
-
-### Inspiration
-* [Color Selection](https://dribbble.com/shots/3764155-Colors-Cafe-WIP)
-* [Completed Palettes](https://codepen.io/Volorf/pen/GqzzRJ)
 
 ### Setup
 
@@ -18,9 +11,17 @@
 2. `npm install` from the root directory
 3. `npm start` and visit `localhost:3000` in your broswer
 
-### Desktop Screenshots
+### Desktop Screenshot
 
-### Mobile Screenshots
+<img src="https://github.com/christopherchateau/palette-picker/blob/master/images/pp-desktop.png" width="400px" />
+
+### Tablet Screenshot
+
+<img src="https://github.com/christopherchateau/palette-picker/blob/master/images/pp-tablet.png" width="400px" />
+
+### Mobile Screenshot
+
+<img src="https://github.com/christopherchateau/palette-picker/blob/master/images/pp-mobile.png" width="400px" />
 
 ### Wireframes
 

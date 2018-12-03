@@ -47,6 +47,31 @@ app.get("/api/v1/projects/:project_id/colors/", (request, response) => {
     });
 });
 
+app.post("/api/v1/projects/:project_id/colors/", (request, response) => {
+  const colors = request.body;
+  database("colors")
+    .insert(colors, "id")
+    .then(projectIds => {
+      response.status(201).json({ id: projectIds[0] });
+    })
+    .catch(error => {
+      response.status(500).json({ error: error.message });
+    });
+});
+
+app.delete("/api/v1/colors/:palette_id", (request, response) => {
+  const { palette_id } = request.params;
+  database("colors")
+    .where("id", palette_id)
+    .del()
+    .then(projectIds => {
+      response.status(202).json({ id: projectIds[0] });
+    })
+    .catch(error => {
+      response.status(500).json({ error: error.message });
+    });
+});
+
 app.listen(app.get("port"), () => {
   console.log(`Palette Picker is running on ${app.get("port")}.`);
 });
