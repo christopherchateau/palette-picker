@@ -71,7 +71,7 @@ app.delete("/api/v1/colors/:palette_id", (request, response) => {
       response.status(500).json({ error: error.message });
     });
 });
-
+  
 app.listen(app.get("port"), () => {
   console.log(`Palette Picker is running on ${app.get("port")}.`);
 });
