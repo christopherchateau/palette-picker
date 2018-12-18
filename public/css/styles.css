@@ -90,7 +90,7 @@ body {
 .projects {
   background: silver;
   display: flex;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .fa-lock:hover,

@@ -1,5 +1,7 @@
 # Palette Picker
 
+# Check out the site on [Heroku](http://palette-picker-chrischateau.herokuapp.com/!
+
 ### Primary Technologie(s)
 * Vanilla JavaScript
 * JQuery
