@@ -6,6 +6,8 @@
 * Vanilla JavaScript
 * JQuery
 * Express.js
+* Knex
+* PostgreSQL
 
 ### Setup
 
